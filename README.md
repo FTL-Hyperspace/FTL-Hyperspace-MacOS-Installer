@@ -31,7 +31,7 @@ This project can be used as a base to create custom installers for other FTL mod
 6. Launch FTL and enjoy Hyperspace!
 
 **Installing additional mods:**
-- Open the mods folder
+- Open the mods folder (`~/Games/FTLHyperspace/mods`)
 - Add your `.ftl` or `.zip` mod files
 - Patch them using ftlman
 
