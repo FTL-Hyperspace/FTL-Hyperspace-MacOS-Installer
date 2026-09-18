@@ -1,3 +1,3 @@
 # Dependency versions default. Can be overridden by scripts.
-FTLMAN_VERSION="v0.7.2"
+FTLMAN_VERSION="v0.7.4"
 HYPERSPACE_VERSION="latest" 
