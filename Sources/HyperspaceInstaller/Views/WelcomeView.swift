@@ -3,6 +3,7 @@ import SwiftUI
 public struct WelcomeView: View {
     @ObservedObject public var state: InstallationState
     @State private var modsList: [String] = []
+    @State private var modManagerDirectoryExists = false
 
     public init(state: InstallationState) {
         self.state = state
@@ -75,6 +76,34 @@ public struct WelcomeView: View {
             .cornerRadius(8)
 
             VStack(alignment: .leading, spacing: 6) {
+                Text("Mod Manager Folder:")
+                    .font(.system(size: 13, weight: .semibold))
+
+                HStack(spacing: 8) {
+                    Image(systemName: "folder")
+                        .foregroundColor(.purple)
+                        .font(.system(size: 11))
+
+                    Text((modManagerDirectory as NSString).abbreviatingWithTildeInPath)
+                        .font(.system(size: 13))
+                        .textSelection(.enabled)
+
+                    Spacer()
+
+                    Button("Open") {
+                        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: modManagerDirectory)
+                    }
+                    .controlSize(.small)
+                    .disabled(!modManagerDirectoryExists)
+                    .help(modManagerDirectoryExists ? "Open the mod manager folder in Finder" : "Mod manager folder is created during installation")
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(10)
+            .background(Color(.controlBackgroundColor))
+            .cornerRadius(8)
+
+            VStack(alignment: .leading, spacing: 6) {
                 Text("Requirements:")
                     .font(.system(size: 13, weight: .semibold))
 
@@ -119,7 +148,12 @@ public struct WelcomeView: View {
         .padding(30)
         .onAppear {
             modsList = readModsList()
+            modManagerDirectoryExists = FileManager.default.fileExists(atPath: modManagerDirectory)
         }
+    }
+
+    private var modManagerDirectory: String {
+        InstallationPaths.baseDirectory(homeDirectory: NSHomeDirectory())
     }
 
     private func readModsList() -> [String] {
