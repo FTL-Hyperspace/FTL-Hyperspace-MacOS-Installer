@@ -9,8 +9,6 @@ permissions:
 jobs:
   build-and-release:
     runs-on: macos-latest
-    outputs:
-      version: ${{ steps.version.outputs.VERSION }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -63,9 +61,3 @@ jobs:
           tag_name: v${{ steps.version.outputs.VERSION }}
           files: release/HyperspaceInstaller-${{ steps.version.outputs.VERSION }}-executables.tar.gz
           body: ${{ env.BODY }}
-
-  build-basemod:
-    needs: build-and-release
-    uses: ./.github/workflows/release-basemod-installer.yml
-    with:
-      release-tag: v${{ needs.build-and-release.outputs.version }}
