@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FTLInstallation: Identifiable, Equatable {
+public struct FTLInstallation: Identifiable, Equatable, Sendable {
     public let id = UUID()
     public let path: String
     public let destination: FTLDestination
