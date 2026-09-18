@@ -34,7 +34,7 @@ public struct SummaryView: View {
                 }) {
                     HStack(spacing: 6) {
                         Image(systemName: "folder")
-                        Text("Open Mods Folder")
+                        Text("Mod Manager")
                     }
                     .frame(maxWidth: .infinity)
                 }
@@ -52,9 +52,7 @@ public struct SummaryView: View {
 
     private var successView: some View {
         let homeDirectory = NSHomeDirectory()
-        let baseDir = InstallationPaths.baseDirectory(homeDirectory: homeDirectory)
-        let modsDir = InstallationPaths.modsDirectory(homeDirectory: homeDirectory)
-        let ftlmanPath = InstallationPaths.ftlmanPath(homeDirectory: homeDirectory)
+        let baseDir = (InstallationPaths.baseDirectory(homeDirectory: homeDirectory) as NSString).abbreviatingWithTildeInPath
 
         return VStack(spacing: 20) {
             VStack(spacing: 12) {
@@ -75,7 +73,7 @@ public struct SummaryView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     infoItem(label: "FTL Version", value: state.selectedFTL?.version ?? "Unknown")
                     infoItem(label: "Installation Path", value: state.selectedFTL?.path ?? "Unknown")
-                    infoItem(label: "Mod Files", value: baseDir)
+                    infoItem(label: "Mod Manager Folder", value: baseDir)
                 }
                 .padding(12)
                 .background(Color(.controlBackgroundColor))
@@ -88,11 +86,16 @@ public struct SummaryView: View {
                     .foregroundColor(.gray)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    nextStepItem("Launch FTL normally - \(AppInfo.appName) will be enabled")
-                    nextStepItem("To add more mods, place .ftl files in \(modsDir)/")
-                    nextStepItem("Run: \(ftlmanPath) to patch additional mods")
+                    nextStepItem("Play: launch FTL as usual, \(AppInfo.appName) is already enabled")
+                    nextStepItem("Add mods: drop .ftl or .zip files into the mods folder")
+                    nextStepItem("Apply mods: open FTL Mod Manager, tick the mods you want, and click Apply")
                 }
+
+                Text("The mods folder and FTL Mod Manager are both in \(baseDir)")
+                    .font(.system(size: 11))
+                    .foregroundColor(.gray)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
             .background(Color(.controlBackgroundColor))
             .cornerRadius(6)
