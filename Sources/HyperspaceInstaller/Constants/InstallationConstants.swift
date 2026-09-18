@@ -48,6 +48,10 @@ enum InstallationPaths {
         "\(baseDirectory(homeDirectory: homeDirectory))/ftlman"
     }
 
+    static func modManagerAppPath(homeDirectory: String) -> String {
+        "\(baseDirectory(homeDirectory: homeDirectory))/FTL Mod Manager.app"
+    }
+
     static func modFilePath(homeDirectory: String) -> String {
         "\(modsDirectory(homeDirectory: homeDirectory))/hyperspace.ftl"
     }

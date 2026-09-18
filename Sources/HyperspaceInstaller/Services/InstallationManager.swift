@@ -245,6 +245,7 @@ class InstallationManager {
 
     private func copyHyperspaceFiles(resourcePath: String) throws {
         try copyFTLManIfNeeded(from: resourcePath)
+        try ModManagerLauncher.create(at: InstallationPaths.modManagerAppPath(homeDirectory: homeDirectory))
         try copyAllModFiles(from: resourcePath)
     }
 
