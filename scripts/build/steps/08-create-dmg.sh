@@ -19,6 +19,7 @@ mkdir -p "$TEMP_DMG_DIR"
 
 # Copy app to temp directory
 cp -r "$INSTALLER_APP_DIR" "$TEMP_DMG_DIR/"
+cp "$REPO_ROOT/assets/dmg-readme.txt" "$TEMP_DMG_DIR/README.txt"
 
 # Create DMG
 hdiutil create -volname "$INSTALLER_NAME" \
