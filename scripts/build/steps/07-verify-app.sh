@@ -13,6 +13,11 @@ success "Executable present"
 [ -f "$INSTALLER_APP_DIR/Contents/Resources/ftlman" ] || error "ftlman missing"
 success "ftlman present"
 
+for license in LICENSE COPYRIGHT.md LICENSE-ftlman; do
+    [ -f "$INSTALLER_APP_DIR/Contents/Resources/licenses/$license" ] || error "$license missing"
+done
+success "License files present"
+
 [ -f "$INSTALLER_APP_DIR/Contents/Info.plist" ] || error "Info.plist missing"
 success "Info.plist present"
 
