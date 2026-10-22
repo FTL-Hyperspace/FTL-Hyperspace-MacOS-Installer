@@ -120,4 +120,8 @@ The build system is separated into stages:
 
 This allows mod creators to build custom installers without managing compilation infrastructure.
 
+## License
+
+The Hyperspace macOS Installer is licensed under [GPL-3.0-or-later](LICENSE).
+
 

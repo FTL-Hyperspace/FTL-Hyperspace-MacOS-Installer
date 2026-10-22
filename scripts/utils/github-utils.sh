@@ -73,3 +73,20 @@ download_and_extract() {
 
     rm -f "$temp_file"
 }
+
+# Download a single file from a repository
+# Usage: download_repo_file "owner/repo" "ref" "path/in/repo" "destination"
+# An empty ref uses the default branch
+download_repo_file() {
+    local repo=$1
+    local ref=$2
+    local path=$3
+    local destination=$4
+
+    mkdir -p "$(dirname "$destination")"
+
+    local endpoint="repos/$repo/contents/$path"
+    [ -n "$ref" ] && endpoint="$endpoint?ref=$ref"
+
+    gh api "$endpoint" -H "Accept: application/vnd.github.raw" > "$destination"
+}

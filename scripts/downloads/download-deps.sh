@@ -72,6 +72,19 @@ step "Downloading FTL-Hyperspace@$HYPERSPACE_VERSION..."
 download_and_extract "FTL-Hyperspace/FTL-Hyperspace" "$HYPERSPACE_VERSION" "*-MacOS.zip" "$EXTERNAL_DIR"
 echo ""
 
+# Download license files bundled into the app
+step "Downloading license files..."
+download_repo_file "afishhh/ftlman" "$FTLMAN_VERSION" "LICENSE" "$EXTERNAL_DIR/licenses/LICENSE-ftlman" \
+    || error "Failed to download ftlman LICENSE"
+success "Downloaded ftlman LICENSE"
+
+# Older Hyperspace tags predate COPYRIGHT.md, so fall back to the default branch
+download_repo_file "FTL-Hyperspace/FTL-Hyperspace" "$HYPERSPACE_VERSION" "COPYRIGHT.md" "$EXTERNAL_DIR/licenses/COPYRIGHT.md" 2>/dev/null \
+    || download_repo_file "FTL-Hyperspace/FTL-Hyperspace" "" "COPYRIGHT.md" "$EXTERNAL_DIR/licenses/COPYRIGHT.md" \
+    || error "Failed to download Hyperspace COPYRIGHT.md"
+success "Downloaded Hyperspace COPYRIGHT.md"
+echo ""
+
 # Verify downloads
 step "Verifying downloaded files..."
 require_file "$EXTERNAL_DIR/ftlman" "ftlman"

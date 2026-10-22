@@ -23,6 +23,12 @@ cp "$EXTERNAL_DIR/MacOS/Hyperspace.command" "$INSTALLER_APP_DIR/Contents/Resourc
 chmod +x "$INSTALLER_APP_DIR/Contents/Resources/Hyperspace.command"
 success "Copied Hyperspace.command"
 
+# Copy license files
+mkdir -p "$INSTALLER_APP_DIR/Contents/Resources/licenses"
+cp "$REPO_ROOT/LICENSE" "$EXTERNAL_DIR/licenses/COPYRIGHT.md" "$EXTERNAL_DIR/licenses/LICENSE-ftlman" \
+    "$INSTALLER_APP_DIR/Contents/Resources/licenses/"
+success "Copied license files"
+
 # Copy custom mods from exact paths if provided
 if [ -n "$INSTALLER_MOD_FILES" ]; then
     for modpath in $INSTALLER_MOD_FILES; do
